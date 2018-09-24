@@ -3,7 +3,7 @@
 using namespace std;
 
 int opcion;
-int contador;
+int c;
 
 struct alumno {
 	string nombre;
@@ -16,7 +16,7 @@ struct alumno {
 	float calif1;
 	float calif2;
 	float calif3;
-	};
+};
 
 alumno datos[100];
 
@@ -126,7 +126,7 @@ void AltaDeAlumnos() {
 		cin >> ignore();
 
 		cout << "\nApellidos: ";
-		getline (cin, datos[c].apellidos);
+		getline(cin, datos[c].apellidos);
 		cin >> ignore();
 
 		cout << "\nCorreo electronico: ";
@@ -141,13 +141,13 @@ void AltaDeAlumnos() {
 		datos[c].calif1 = -1;
 
 		datos[c].calif2 = -1;
-		
+
 		datos[c].calif3 = -1;
 
 		cout << "\nDirección: ";
 
 		cout << "\nCalle y número: ";
-		getline (cin, datos[c].callenum);
+		getline(cin, datos[c].callenum);
 		cin >> ignore();
 
 		cout << "\nColonia: ";
@@ -268,13 +268,19 @@ void BuscarMatricula() {
 	cin >> mat;
 
 	bool encontrado = false;
-	
+
 	int i = 0;
 	while (i < c) {
-		if (mat == datos[i].matricula) { 
+		if (mat.c_str() == datos[i].matricula.c_str()) {
 			system("cls");
 			cout << "Se encontró la siguiente información." << endl << endl;
-			cout << "Altura" << p[i].id << ": " << p[i].altura << endl;
+			cout << "Alumno: " << datos[i].nombre << " " << datos[i].apellidos << endl;
+			cout << "Correo electrónico: " << datos[c].correoelec << endl;
+			cout << "Teléfono: " << datos[i].telefono << endl;
+			cout << "Matrícula" << datos[i].matricula << endl;
+			cout << "Calificaciones" << endl << "Calificación 1: " << datos[i].calif1 << endl;
+			cout << "Calificación 2: " << datos[i].calif2 << endl << "Calificación 3: " << datos[i].calif3 << endl;
+			cout << "Dirección: " << datos[i].callenum << " " << datos[i].colonia << endl;
 			encontrado = true;
 			break;
 		}
@@ -282,13 +288,12 @@ void BuscarMatricula() {
 	}
 
 	if (!encontrado) {
-		cout << "No hay alumno registrado con esa matrícula."
+		cout << "No hay alumno registrado con esa matrícula." << endl;
 	}
 
 	system("pause > nul");
 
 	menu();
-}
 }
 
 void EdicionDeAlumnos() {
