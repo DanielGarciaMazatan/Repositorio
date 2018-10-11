@@ -10,11 +10,11 @@ int c;
 struct alumno {
 	string nombre;
 	string apellidos;
-	char correoelec;
-	char telefono[12];
-	char matricula[7];
+	string correoelec;
+	string telefono;
+	string matricula;
 	string callenum;
-	char colonia;
+	string colonia;
 	float calif1;
 	float calif2;
 	float calif3;
@@ -127,19 +127,19 @@ void AltaDeAlumnos() {
 		cout << "Nombre(s): ";
 		getline(cin, datos[c].nombre);
 		
-
 		cout << "\nApellidos: ";
 		getline(cin, datos[c].apellidos);
-		cin.ignore();
 
 		cout << "\nCorreo electronico: ";
-		cin >> datos[c].correoelec;
+		getline(cin, datos[c].correoelec);
 
 		cout << "\nTeléfono de contacto: ";
 		cin >> datos[c].telefono;
 
 		cout << "\nMatrícula: ";
-		cin >> datos[c].matricula;
+		getline(cin, datos[c].matricula);
+		
+		cin.ignore();
 
 		datos[c].calif1 = -1;
 
@@ -148,14 +148,14 @@ void AltaDeAlumnos() {
 		datos[c].calif3 = -1;
 
 		cout << "\nDirección: ";
-
-		cin.ignore(); 
+		
 		cout << "\nCalle y número: ";
 		getline(cin, datos[c].callenum);
 		cin.ignore();
 
 		cout << "\nColonia: ";
-		cin >> datos[c].colonia;
+		getline(cin, datos[c].colonia);
+		cin.ignore();
 
 		c++;
 
@@ -170,13 +170,8 @@ void AltaDeAlumnos() {
 		if (opcion == 1) {
 			AltaDeAlumnos();
 		}
-		else {
-			menu();
-		}
 	}
-	else {
 		menu();
-	}
 }
 
 void AltaDeCalificaciones() {
@@ -194,14 +189,14 @@ void AltaDeCalificaciones() {
 		system("cls");
 
 		cout << "¿Qué matrícula buscas? " << endl;
-		char mat[7];
-		cin >> mat;
+		string mat;
+		getline(cin, mat);
 
 		bool encontrado = false;
 
 		int i = 0;
 		while (i < c) {
-			if (strcmp(mat, datos[i].matricula) == 0) {
+			if (strcmp(mat.c_str(), datos[i].matricula.c_str()) == 0) {
 				system("cls");
 				cout << "Se encontró el siguiente alumno." << endl << endl;
 				cout << "Alumno: " << datos[i].nombre << " " << datos[i].apellidos << endl;
@@ -284,15 +279,15 @@ void BuscarMatricula() {
 	cout << "BUSCAR MATRICULA" << endl << endl;
 
 	cout << "¿Qué matrícula buscas? " << endl;
-	char mat[7];
-	cin >> mat;
+	string mat;
+	getline(cin, mat);
 
 	
 	bool encontrado = false;
 
 	int i = 0;
 	while (i < c) {
-		if (strcmp(mat, datos[i].matricula) == 0) {
+		if (strcmp(mat.c_str(), datos[i].matricula.c_str()) == 0) {
 			system("cls");
 			cout << "Se encontró la siguiente información." << endl << endl;
 			cout << "Alumno: " << datos[i].nombre << " " << datos[i].apellidos << endl;
@@ -324,14 +319,14 @@ void EdicionDeAlumnos() {
 	cout << "EDICIÓN DE ALUMNOS" << endl << endl;
 
 	cout << "¿Qué matrícula buscas? " << endl;
-	char mat[7];
-	cin >> mat;
+	string mat;
+	getline(cin, mat);
 
 	bool encontrado = false;
 
 	int i = 0;
 	while (i < c) {
-		if (strcmp(mat, datos[i].matricula) == 0) {
+		if (strcmp(mat.c_str(), datos[i].matricula.c_str()) == 0) {
 			system("cls");
 			cout << "Se encontró la siguiente información." << endl << endl;
 			cout << "Alumno: " << datos[i].nombre << " " << datos[i].apellidos << endl;
@@ -356,7 +351,6 @@ void EdicionDeAlumnos() {
 				cout << "Ingrese el nuevo dato: ";
 				switch (opcion) {
 				case 1:
-					cin.ignore;
 					getline(cin, datos[i].nombre);
 					break;
 
@@ -365,7 +359,6 @@ void EdicionDeAlumnos() {
 					break;
 
 				case 3:
-					cin.ignore;
 					cin >> datos[i].correoelec;
 					break;
 
@@ -378,7 +371,6 @@ void EdicionDeAlumnos() {
 					break;
 
 				case 6:
-					cin.ignore;
 					cin >> datos[i].calif1;
 					break;
 
@@ -391,7 +383,6 @@ void EdicionDeAlumnos() {
 					break;
 
 				case 9:
-					cin.ignore;
 					cin >> datos[i].callenum;
 					break;
 
@@ -421,14 +412,14 @@ void BorrarAlumnos() {
 	cout << "BORRAR ALUMNOS" << endl << endl;
 
 	cout << "¿Qué matrícula buscas? " << endl;
-	char mat[7];
-	cin >> mat;
+	string mat;
+	getline(cin, mat);
 
 	bool encontrado = false;
 
 	int i = 0;
 	while (i < c) {
-		if (strcmp(mat, datos[i].matricula == 0)) {
+		if (strcmp(mat.c_str(), datos[i].matricula.c_str()) == 0) {
 			system("cls");
 			cout << "Se encontró la siguiente información." << endl << endl;
 			cout << "Alumno: " << datos[i].nombre << " " << datos[i].apellidos << endl;
