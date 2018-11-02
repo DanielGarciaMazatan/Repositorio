@@ -151,11 +151,9 @@ void AltaDeAlumnos() {
 		
 		cout << "\nCalle y número: ";
 		getline(cin, datos[c].callenum);
-		cin.ignore();
 
 		cout << "\nColonia: ";
 		getline(cin, datos[c].colonia);
-		cin.ignore();
 
 		c++;
 
