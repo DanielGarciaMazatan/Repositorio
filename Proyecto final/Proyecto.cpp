@@ -2,10 +2,13 @@
 #include <string>
 #include <cstdio>
 #include <cstdlib>
+#include <fstream>
 using namespace std;
 
 int opcion;
 int c;
+
+ifstream archivodatos;
 
 struct alumno {
 	string nombre;
@@ -38,11 +41,9 @@ void main() {
 
 	locale::global(locale("spanish"));
 
-	c = 0;
-
 	menu();
 
-	system("pause");
+	system("pause > nul");
 }
 
 void menu() {
@@ -112,7 +113,7 @@ void AltaDeAlumnos() {
 
 	cout << "ALTA DE ALUMNOS" << endl << endl;
 
-	cout << "¿Desea registrar un alumno?" << endl << endl << "1. Si \n2. Cancelar" << endl << endl;
+	cout << "¿Desea registrar un alumno?" << endl << endl << "1. Registrar \n2. Cancelar" << endl << endl;
 	cin >> opcion;
 
 	if (opcion == 1) {
@@ -136,10 +137,9 @@ void AltaDeAlumnos() {
 		cout << "\nTeléfono de contacto: ";
 		cin >> datos[c].telefono;
 
+		cin.ignore();
 		cout << "\nMatrícula: ";
 		getline(cin, datos[c].matricula);
-		
-		cin.ignore();
 
 		datos[c].calif1 = -1;
 
@@ -147,9 +147,8 @@ void AltaDeAlumnos() {
 
 		datos[c].calif3 = -1;
 
-		cout << "\nDirección: ";
-		
-		cout << "\nCalle y número: ";
+		cin.ignore();
+		cout << "\nDirección: \nCalle y número: ";
 		getline(cin, datos[c].callenum);
 
 		cout << "\nColonia: ";
@@ -159,10 +158,12 @@ void AltaDeAlumnos() {
 
 		system("cls");
 
+		cout << "ALTA DE ALUMNOS" << endl << endl;
+
 		cout << "Los datos han sido registrados exitosamente." << endl << endl;
 
 		cout << "¿Quiere registrar otro alumno?" << endl << endl;
-		cout << "1. Si \n2. No" << endl;
+		cout << "1. Registrar \n2. Salir" << endl;
 		cin >> opcion;
 
 		if (opcion == 1) {
@@ -186,6 +187,9 @@ void AltaDeCalificaciones() {
 
 		system("cls");
 
+		cout << "ALTA DE CALIFICACIONES" << endl << endl;
+
+		cin.ignore();
 		cout << "¿Qué matrícula buscas? " << endl;
 		string mat;
 		getline(cin, mat);
@@ -195,7 +199,11 @@ void AltaDeCalificaciones() {
 		int i = 0;
 		while (i < c) {
 			if (strcmp(mat.c_str(), datos[i].matricula.c_str()) == 0) {
+				
 				system("cls");
+
+				cout << "ALTA DE CALIFICACIONES" << endl << endl;
+
 				cout << "Se encontró el siguiente alumno." << endl << endl;
 				cout << "Alumno: " << datos[i].nombre << " " << datos[i].apellidos << endl;
 
@@ -203,12 +211,13 @@ void AltaDeCalificaciones() {
 				cout << "1. Calificación 1 \n2. Calificación 2 \n3. Calificación 3" << endl << endl;
 				cin >> opcion;
 
+				
 				switch (opcion) {
 
 				case 1:
 					if (datos[i].calif1 == -1) {
 						cout << "Calificación 1: " << endl;
-						cin >> datos[c].calif1;
+						cin >> datos[i].calif1;
 					}
 					else {
 						cout << "Esta calificación ya fue registrada. Si desea modificarla acceda a la sección de Edicion de Alumnos." << endl;
@@ -218,7 +227,7 @@ void AltaDeCalificaciones() {
 				case 2:
 					if (datos[i].calif2 == -1) {
 						cout << "Calificación 2: " << endl;
-						cin >> datos[c].calif2;
+						cin >> datos[i].calif2;
 					}
 					else {
 						cout << "Esta calificación ya fue registrada. Si desea modificarla acceda a la sección de Edicion de Alumnos." << endl;
@@ -228,7 +237,7 @@ void AltaDeCalificaciones() {
 				case 3:
 					if (datos[i].calif3 == -1) {
 						cout << "Calificación 3: " << endl;
-						cin >> datos[c].calif3;
+						cin >> datos[i].calif3;
 					}
 					else {
 						cout << "Esta calificación ya fue registrada. Si desea modificarla acceda a la sección de Edición de Alumnos." << endl;
@@ -236,10 +245,12 @@ void AltaDeCalificaciones() {
 					break;
 				}
 			}
+			else {
+				cout << "No hay alumnos registrados con esta matrícula" << endl << endl;
+				i++;
+			}
 
 			system("pause > nul");
-
-			menu();
 		}
 	}
 	menu();
@@ -249,16 +260,30 @@ void ListaCompleta() {
 
 	system("cls");
 
+	archivodatos.open("Base de datos.txt", ios::binary);
+
+	if (archivodatos.fail()) {
+		cout << "Error al abrir el archivo. \nPuede que el archivo no exista o se produjo un problema al intentar abrirlo" << endl << endl;
+		system("pause > nul");
+	}
+	else {
+		while (!archivodatos.eof()) {
+			archivodatos.read((char*)&datos, sizeof(datos));
+		}
+	}
+
+	archivodatos.close();
+
 	cout << "LISTA COMPLETA" << endl << endl;
 	if (c > 0) {
 		for (int i = 0; i < c; i++) {
 			cout << "Alumno: " << datos[i].nombre << " " << datos[i].apellidos << endl;
 			cout << "Correo electrónico: " << datos[i].correoelec << endl;
 			cout << "Teléfono: " << datos[i].telefono << endl;
-			cout << "Matrícula" << datos[i].matricula << endl;
+			cout << "Matrícula: " << datos[i].matricula << endl;
 			cout << "Calificaciones" << endl << "Calificación 1: " << datos[i].calif1 << endl;
 			cout << "Calificación 2: " << datos[i].calif2 << endl << "Calificación 3: " << datos[i].calif3 << endl;
-			cout << "Dirección: " << datos[i].callenum << " " << datos[i].colonia << endl;
+			cout << "Dirección: " << datos[i].callenum << " " << datos[i].colonia << endl << endl;
 		}
 	}
 	else {
@@ -457,7 +482,6 @@ void BorrarAlumnos() {
 void ArchivoDeTexto() {
 
 	system("cls");
-
 
 	cout << "ARCHIVO DE TEXTO" << endl << endl;
 }
