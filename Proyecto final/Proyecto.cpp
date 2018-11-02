@@ -515,6 +515,15 @@ void Salir() {
 		menu();
 	}
 	else {
+
+		ofstream archivo;
+
+		archivo.open("Base de datos.txt", ios::binary);
+
+		archivo.write((char*)&archivodatos, sizeof(archivodatos));
+
+		archivo.close();
+
 		system("cls");
 	}
 }
