@@ -151,7 +151,7 @@ void AltaDeAlumnos() {
 					break;
 				}
 			}
-
+			cin.ignore();
 		}
 		else if (opcion == 2) {
 			cin.ignore();
@@ -159,6 +159,10 @@ void AltaDeAlumnos() {
 			getline(cin, datos[c].matricula);
 		}
 		else {
+			system("cls");
+
+			cout << "ALTA DE ALUMNOS" << endl << endl;
+
 			cout << "Error. Presione Enter e ingrese una opcion válida." << endl << endl;
 
 			system("pause > nul");
@@ -171,8 +175,6 @@ void AltaDeAlumnos() {
 
 		cout << "\nColonia: ";
 		getline(cin, datos[c].colonia);
-
-		cin.ignore();
 
 		datos[c].calif1 = -1;
 
@@ -416,7 +418,7 @@ void AltaDeAlumnos() {
 			}
 		}
 
-		if (validar1 == true && validar2 == true && validar3 == true) {
+		if (validar1 == true && validar2 == true && validar3 == true && validar4 == true && validar5 == true) {
 			c++;
 
 			system("cls");
@@ -449,7 +451,9 @@ void AltaDeAlumnos() {
 	cout << "Error. Elija una opción válida." << endl;
 
 	system("pause > nul");
-			}
+
+	menu();
+	}
 }
 
 void AltaDeCalificaciones() {
