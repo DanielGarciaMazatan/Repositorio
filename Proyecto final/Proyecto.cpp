@@ -7,6 +7,7 @@ using namespace std;
 
 int opcion;
 int c;
+
 ifstream archivodatos;
 
 struct alumno {
@@ -136,13 +137,12 @@ void AltaDeAlumnos() {
 		cout << "\nTeléfono de contacto: ";
 		getline(cin, datos[c].telefono);
 
-		cin.ignore();
-		cout << "¿Quiere permitir que el programa autogenere una matrícula?" << endl;
+		cout << "\n¿Quiere permitir que el programa autogenere una matrícula?" << endl;
 		cout << "1.Autogenerar \n2.Denegar" << endl << endl;
 		cin >> opcion;
 
 		if (opcion == 1) {
-			datos[c].matricula = 1600000;
+			datos[c].matricula = 0000001;
 			for (int i = 0; i < c; i++) {
 				if (strcmp(datos[c].matricula.c_str(), datos[i].matricula.c_str()) == 0) {
 					datos[c].matricula = stoi(datos[c].matricula) + 1;
@@ -151,9 +151,10 @@ void AltaDeAlumnos() {
 					break;
 				}
 			}
-			
+
 		}
 		else if (opcion == 2) {
+			cin.ignore();
 			cout << "\nMatrícula: ";
 			getline(cin, datos[c].matricula);
 		}
@@ -165,27 +166,126 @@ void AltaDeAlumnos() {
 			AltaDeAlumnos();
 		}
 
-		datos[c].calif1 = -1;
-
-		datos[c].calif2 = -1;
-
-		datos[c].calif3 = -1;
-
-		cin.ignore();
 		cout << "\nDirección: \nCalle y número: ";
 		getline(cin, datos[c].callenum);
 
 		cout << "\nColonia: ";
 		getline(cin, datos[c].colonia);
 
+		cin.ignore();
+
+		datos[c].calif1 = -1;
+
+		datos[c].calif2 = -1;
+
+		datos[c].calif3 = -1;
+
 		int tamano1 = datos[c].telefono.size();
 		int tamano2 = datos[c].correoelec.size();
+		int tamano3 = datos[c].matricula.size();
+		int tamano4 = datos[c].nombre.size();
+		int tamano5 = datos[c].apellidos.size();
 		bool validar1 = false;
 		bool validar2 = false;
+		bool validar3 = false;
+		bool validar4 = false;
+		bool validar5 = false;
+
+		while (validar4 == false) {
+			for (int i = 0; i < tamano4; i++) {
+				if (datos[c].nombre[i] >= 65 && datos[c].nombre[i] <= 90 || datos[c].nombre[i] >= 97 && datos[c].nombre[i] <= 122) {
+					validar4 = true;
+					if (i = 0) {
+						if (datos[c].nombre[i] >= 97 && datos[c].nombre[i] <= 122) {
+							datos[c].nombre[i] = datos[c].nombre[0] - 32;
+						}
+					}
+					else if (datos[c].nombre[i - 1] == 32) {
+						if (datos[c].nombre[i] >= 97 && datos[c].nombre[i] <= 122) {
+							datos[c].nombre[i] = datos[c].nombre[i] - 32;
+						}
+					}
+					else {
+						if (datos[c].nombre[i] >= 65 && datos[c].nombre[i] <= 90) {
+							datos[c].nombre[i] = datos[c].nombre[i] + 32;
+						}
+					}
+				}
+				else if (datos[c].nombre[i] == 32) {
+					validar4 = true;
+				}
+				else {
+					validar4 = false;
+				}
+
+				if (validar4 == true) {
+					break;
+				}
+				else{
+					system("cls");
+
+					cout << "ALTA DE ALUMNOS" << endl << endl;
+
+					cout << "El nombre ingresado contiene elementos que no son letras del alfabeto." << endl << endl;
+					cout << "Presione Enter y vuelva a registrar el nombre correctamente." << endl << endl;
+
+					system("pause > nul");
+
+					cout << "Nombre(s): ";
+					getline(cin, datos[c].nombre);
+				}
+			}
+		}
+
+		while (validar5 == false) {
+			for (int i = 0; i < tamano5; i++) {
+				if (datos[c].apellidos[i] >= 65 && datos[c].apellidos[i] <= 90 || datos[c].apellidos[i] >= 97 && datos[c].apellidos[i] <= 122) {
+					validar5 = true;
+					if (i = 0) {
+						if (datos[c].apellidos[i] >= 97 && datos[c].apellidos[i] <= 122) {
+							datos[c].apellidos[i] = datos[c].apellidos[0] - 32;
+						}
+					}
+					else if (datos[c].apellidos[i - 1] == 32) {
+						if (datos[c].apellidos[i] >= 97 && datos[c].apellidos[i] <= 122) {
+							datos[c].apellidos[i] = datos[c].apellidos[i] - 32;
+						}
+					}
+					else {
+						if (datos[c].apellidos[i] >= 65 && datos[c].apellidos[i] <= 90) {
+							datos[c].apellidos[i] = datos[c].apellidos[i] + 32;
+						}
+					}
+				}
+				else if (datos[c].apellidos[i] == 32) {
+					validar5 = true;
+				}
+				else {
+					validar5 = false;
+				}
+
+				if (validar5 == true) {
+					break;
+				}
+				else {
+					system("cls");
+
+					cout << "ALTA DE ALUMNOS" << endl << endl;
+
+					cout << "Los apellidos ingresados contienen elementos que no son letras del alfabeto." << endl << endl;
+					cout << "Presione Enter y vuelva a registrar los apellidos correctamente." << endl << endl;
+
+					system("pause > nul");
+
+					cout << "Apellidos: ";
+					getline(cin, datos[c].apellidos);
+				}
+			}
+		}
 
 		for (int i = 0; i < tamano2; i++) {
 			if (datos[c].correoelec[i] == 64) {
-
+				validar2 = true;
 			}
 			else {
 				validar2 = false;
@@ -197,12 +297,17 @@ void AltaDeAlumnos() {
 			if (tamano1 >= 8 && tamano1 < 12) {
 
 				for (int i = 0; i < tamano1; i++) {
-					if (datos[c].telefono[i] >= 48 && datos[c].telefono[i] <= 57) {
-						validar1 = true;
+					if (datos[c].telefono[i] != 32) {
+						if (datos[c].telefono[i] >= 48 && datos[c].telefono[i] <= 57) {
+							validar1 = true;
+						}
+						else {
+							validar1 = false;
+							break;
+						}
 					}
 					else {
 						validar1 = false;
-						break;
 					}
 				}
 			}
@@ -222,6 +327,8 @@ void AltaDeAlumnos() {
 				cout << "o uno o varios de estos elementos no son números." << endl << endl;
 				cout << "Presione Enter y vuelva a registrar el teléfono correctamente." << endl << endl;
 
+				system("pause > nul");
+
 				cout << "Teléfono de contacto: ";
 				getline(cin, datos[c].telefono);
 			}
@@ -240,10 +347,10 @@ void AltaDeAlumnos() {
 				}
 			}
 
-			if ((datos[c].correoelec[tamano2 - 3]) == 46) {
-				if ((datos[c].correoelec[tamano2 - 2]) == 99) {
-					if ((datos[c].correoelec[tamano2 - 1]) == 111) {
-						if ((datos[c].correoelec[tamano2]) == 109) {
+			if ((datos[c].correoelec[tamano2 - 4]) == 46) {
+				if ((datos[c].correoelec[tamano2 - 3]) == 99) {
+					if ((datos[c].correoelec[tamano2 - 2]) == 111) {
+						if ((datos[c].correoelec[tamano2 - 1]) == 109) {
 							validar2 = true;
 						}
 						else {
@@ -273,12 +380,43 @@ void AltaDeAlumnos() {
 				cout << "El correo electrónico ingresado no contiene @ o no tiene la finalización .com." << endl << endl;
 				cout << "Presione Enter y vuelva a registrar el correo electrónico correctamente." << endl << endl;
 
-				cout << "Correo electronico: ";
+				system("pause > nul");
+
+				cout << "Correo electrónico: ";
 				getline(cin, datos[c].correoelec);
 			}
 		}
 
-		if (validar1 == true && validar2 == true) {
+		while (validar3 == false) {
+			int cont = 0;
+			for (int i = 0; i < tamano3; i++) {
+				cont = cont + 1;
+			}
+			if (cont == 7) {
+				validar3 = true;
+			}
+			else {
+				validar3 = false;
+			}
+			if (validar3 == true) {
+				break;
+			}
+			else {
+				system("cls");
+
+				cout << "ALTA DE ALUMNOS" << endl << endl;
+
+				cout << "La matrícula ingresada debe contener 7 elementos." << endl << endl;
+				cout << "Presione Enter y vuelva a registrar la matrícula correctamente." << endl << endl;
+
+				system("pause > nul");
+
+				cout << "Matrícula: ";
+				getline(cin, datos[c].matricula);
+			}
+		}
+
+		if (validar1 == true && validar2 == true && validar3 == true) {
 			c++;
 
 			system("cls");
@@ -304,6 +442,14 @@ void AltaDeAlumnos() {
 			}
 		}
 	}
+	else if (opcion == 2) {
+	menu();
+			}
+	else {
+	cout << "Error. Elija una opción válida." << endl;
+
+	system("pause > nul");
+			}
 }
 
 void AltaDeCalificaciones() {
@@ -351,17 +497,51 @@ void AltaDeCalificaciones() {
 						cout << "Calificación 1: " << endl;
 						cin >> datos[i].calif1;
 
-						if (datos[i].calif1 >= 0.0 && datos[i].calif1 <= 100.0) {
-							break;
-						}
-						else {
-							cout << "La calificación esta fuera del rango permitido." << endl << endl;
-							cout << "Presione Enter y vuelva a registrar la calificación." << endl << endl;
+						string aux = to_string(datos[i].calif1);
+						int aux1 = aux.size();
+						bool validar = false;
 
-							system("pause > nul");
+						while (validar = false) {
+							if (datos[i].calif1 >= 0.0 && datos[i].calif1 <= 100.0) {
+								for (int i = 0; i < aux1; i++) {
+									if (aux[i] == 46) {
+										int cont = 0;
+										for (int j = i + 1; j < aux1; j++) {
+											cont = cont + 1;
+										}
 
-							AltaDeCalificaciones();
-						}
+										if (cont > 2) {
+											validar = false;
+											break;
+										}
+										else {
+											validar = true;
+											break;
+										}
+									}
+								}
+							}
+							else {
+								validar = false;
+							}
+
+							if (validar == true) {
+								break;
+							}
+							else {
+								system("cls");
+
+								cout << "ALTA DE CALIFICACIONES" << endl << endl;
+
+								cout << "Error. El número ingresado contiene más de dos decimales o esta fuera del rango permitido." << endl << endl;
+								cout << "Presione Enter y vuelva a registrar la calificación correctamente." << endl << endl;
+
+								system("pause > nul");
+
+								cout << "Calificación 1: " << endl;
+								cin >> datos[i].calif1;
+							}
+						}				
 					}
 					else {
 						cout << "Esta calificación ya fue registrada. Si desea modificarla acceda a la sección de Edicion de Alumnos." << endl;
@@ -373,16 +553,50 @@ void AltaDeCalificaciones() {
 						cout << "Calificación 2: " << endl;
 						cin >> datos[i].calif2;
 
-						if (datos[i].calif2 >= 0.0 || datos[i].calif2 <= 100.0) {
-							break;
-						}
-						else {
-							cout << "La calificación esta fuera del rango permitido." << endl << endl;
-							cout << "Presione Enter y vuelva a registrar la calificación." << endl << endl;
+						string aux = to_string(datos[i].calif2);
+						int aux1 = aux.size();
+						bool validar = false;
 
-							system("pause > nul");
+						while (validar = false) {
+							if (datos[i].calif2 >= 0.0 && datos[i].calif2 <= 100.0) {
+								for (int i = 0; i < aux1; i++) {
+									if (aux[i] == 46) {
+										int cont = 0;
+										for (int j = i + 1; j < aux1; j++) {
+											cont = cont + 1;
+										}
 
-							AltaDeCalificaciones();
+										if (cont > 2) {
+											validar = false;
+											break;
+										}
+										else {
+											validar = true;
+											break;
+										}
+									}
+								}
+							}
+							else {
+								validar = false;
+							}
+
+							if (validar == true) {
+								break;
+							}
+							else {
+								system("cls");
+
+								cout << "ALTA DE CALIFICACIONES" << endl << endl;
+
+								cout << "Error. El número ingresado contiene más de dos decimales o esta fuera del rango permitido." << endl << endl;
+								cout << "Presione Enter y vuelva a registrar la calificación correctamente." << endl << endl;
+
+								system("pause > nul");
+
+								cout << "Calificación 2: " << endl;
+								cin >> datos[i].calif2;
+							}
 						}
 					}
 					else {
@@ -395,20 +609,54 @@ void AltaDeCalificaciones() {
 						cout << "Calificación 3: " << endl;
 						cin >> datos[i].calif3;
 
-						if (datos[i].calif3 >= 0.0 || datos[i].calif3 <= 100.0) {
-							break;
-						}
-						else {
-							cout << "La calificación esta fuera del rango permitido." << endl << endl;
-							cout << "Presione Enter y vuelva a registrar la calificación." << endl << endl;
+						string aux = to_string(datos[i].calif3);
+						int aux1 = aux.size();
+						bool validar = false;
+						
+						while (validar = false) {
+							if (datos[i].calif3 >= 0.0 && datos[i].calif3 <= 100.0) {
+								for (int i = 0; i < aux1; i++) {
+									if (aux[i] == 46) {
+										int cont = 0;
+										for (int j = i + 1; j < aux1; j++) {
+											cont = cont + 1;
+										}
 
-							system("pause > nul");
+										if (cont > 2) {
+											validar = false;
+											break;
+										}
+										else {
+											validar = true;
+											break;
+										}
+									}
+								}
+							}
+							else {
+								validar = false;
+							}
 
-							AltaDeCalificaciones();
+							if (validar == true) {
+								break;
+							}
+							else {
+								system("cls");
+
+								cout << "ALTA DE CALIFICACIONES" << endl << endl;
+
+								cout << "Error. El número ingresado contiene más de dos decimales o esta fuera del rango permitido." << endl << endl;
+								cout << "Presione Enter y vuelva a registrar la calificación correctamente." << endl << endl;
+
+								system("pause > nul");
+
+								cout << "Calificación 3: " << endl;
+								cin >> datos[i].calif3;
+							}
 						}
 					}
 					else {
-						cout << "Esta calificación ya fue registrada. Si desea modificarla acceda a la sección de Edición de Alumnos." << endl;
+						cout << "Esta calificación ya fue registrada. Si desea modificarla acceda a la sección de Edicion de Alumnos." << endl;
 					}
 					break;
 				}
