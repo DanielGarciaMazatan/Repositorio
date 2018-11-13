@@ -125,75 +125,14 @@ void AltaDeAlumnos() {
 		cout << "Ingrese los datos correspondientes del alumno" << endl << endl;
 
 		cin.ignore();
-		cout << "Nombre(s): ";
-		getline(cin, datos[c].nombre);
 
-		cout << "\nApellidos: ";
-		getline(cin, datos[c].apellidos);
-
-		cout << "\nCorreo electronico: ";
-		getline(cin, datos[c].correoelec);
-
-		cout << "\nTeléfono de contacto: ";
-		getline(cin, datos[c].telefono);
-
-		cout << "\n¿Quiere permitir que el programa autogenere una matrícula?" << endl;
-		cout << "1.Autogenerar \n2.Denegar" << endl << endl;
-		cin >> opcion;
-
-		if (opcion == 1) {
-			datos[c].matricula = 0000001;
-			for (int i = 0; i < c; i++) {
-				if (strcmp(datos[c].matricula.c_str(), datos[i].matricula.c_str()) == 0) {
-					datos[c].matricula = stoi(datos[c].matricula) + 1;
-				}
-				else {
-					break;
-				}
-			}
-			cin.ignore();
-		}
-		else if (opcion == 2) {
-			cin.ignore();
-			cout << "\nMatrícula: ";
-			getline(cin, datos[c].matricula);
-		}
-		else {
-			system("cls");
-
-			cout << "ALTA DE ALUMNOS" << endl << endl;
-
-			cout << "Error. Presione Enter e ingrese una opcion válida." << endl << endl;
-
-			system("pause > nul");
-
-			AltaDeAlumnos();
-		}
-
-		cout << "\nDirección: \nCalle y número: ";
-		getline(cin, datos[c].callenum);
-
-		cout << "\nColonia: ";
-		getline(cin, datos[c].colonia);
-
-		datos[c].calif1 = -1;
-
-		datos[c].calif2 = -1;
-
-		datos[c].calif3 = -1;
-
-		int tamano1 = datos[c].telefono.size();
-		int tamano2 = datos[c].correoelec.size();
-		int tamano3 = datos[c].matricula.size();
-		int tamano4 = datos[c].nombre.size();
-		int tamano5 = datos[c].apellidos.size();
-		bool validar1 = false;
-		bool validar2 = false;
-		bool validar3 = false;
 		bool validar4 = false;
-		bool validar5 = false;
-
 		while (validar4 == false) {
+			cout << "Nombre(s): ";
+			getline(cin, datos[c].nombre);
+
+			int tamano4 = (datos[c].nombre).length();
+
 			for (int i = 0; i < tamano4; i++) {
 				if (datos[c].nombre[i] >= 65 && datos[c].nombre[i] <= 90 || datos[c].nombre[i] >= 97 && datos[c].nombre[i] <= 122) {
 					validar4 = true;
@@ -223,7 +162,7 @@ void AltaDeAlumnos() {
 				if (validar4 == true) {
 					break;
 				}
-				else{
+				else {
 					system("cls");
 
 					cout << "ALTA DE ALUMNOS" << endl << endl;
@@ -239,7 +178,13 @@ void AltaDeAlumnos() {
 			}
 		}
 
+		bool validar5 = false;
 		while (validar5 == false) {
+			cout << "\nApellidos: ";
+			getline(cin, datos[c].apellidos);
+
+			int tamano5 = datos[c].apellidos.size();
+
 			for (int i = 0; i < tamano5; i++) {
 				if (datos[c].apellidos[i] >= 65 && datos[c].apellidos[i] <= 90 || datos[c].apellidos[i] >= 97 && datos[c].apellidos[i] <= 122) {
 					validar5 = true;
@@ -285,58 +230,12 @@ void AltaDeAlumnos() {
 			}
 		}
 
-		for (int i = 0; i < tamano2; i++) {
-			if (datos[c].correoelec[i] == 64) {
-				validar2 = true;
-			}
-			else {
-				validar2 = false;
-			}
-		}
-
-		while (validar1 == false) {
-
-			if (tamano1 >= 8 && tamano1 < 12) {
-
-				for (int i = 0; i < tamano1; i++) {
-					if (datos[c].telefono[i] != 32) {
-						if (datos[c].telefono[i] >= 48 && datos[c].telefono[i] <= 57) {
-							validar1 = true;
-						}
-						else {
-							validar1 = false;
-							break;
-						}
-					}
-					else {
-						validar1 = false;
-					}
-				}
-			}
-			else {
-				validar1 = false;
-			}
-
-			if (validar1 == true) {
-				break;
-			}
-			else {
-				system("cls");
-
-				cout << "ALTA DE ALUMNOS" << endl << endl;
-
-				cout << "El teléfono ingresado contiene una cantidad de elementos fuera del rango permitido ";
-				cout << "o uno o varios de estos elementos no son números." << endl << endl;
-				cout << "Presione Enter y vuelva a registrar el teléfono correctamente." << endl << endl;
-
-				system("pause > nul");
-
-				cout << "Teléfono de contacto: ";
-				getline(cin, datos[c].telefono);
-			}
-		}
-
+		bool validar2 = false;
 		while (validar2 == false) {
+			cout << "\nCorreo electronico: ";
+			getline(cin, datos[c].correoelec);
+
+			int tamano2 = datos[c].correoelec.size();
 
 			for (int i = 0; i < tamano2; i++) {
 
@@ -389,18 +288,35 @@ void AltaDeAlumnos() {
 			}
 		}
 
-		while (validar3 == false) {
-			int cont = 0;
-			for (int i = 0; i < tamano3; i++) {
-				cont = cont + 1;
-			}
-			if (cont == 7) {
-				validar3 = true;
+		bool validar1 = false;
+		while (validar1 == false) {
+			cout << "\nTeléfono de contacto: ";
+			getline(cin, datos[c].telefono);
+			
+			int tamano1 = datos[c].telefono.size();
+
+			if (tamano1 >= 8 && tamano1 < 12) {
+
+				for (int i = 0; i < tamano1; i++) {
+					if (datos[c].telefono[i] != 32) {
+						if (datos[c].telefono[i] >= 48 && datos[c].telefono[i] <= 57) {
+							validar1 = true;
+						}
+						else {
+							validar1 = false;
+							break;
+						}
+					}
+					else {
+						validar1 = false;
+					}
+				}
 			}
 			else {
-				validar3 = false;
+				validar1 = false;
 			}
-			if (validar3 == true) {
+
+			if (validar1 == true) {
 				break;
 			}
 			else {
@@ -408,40 +324,118 @@ void AltaDeAlumnos() {
 
 				cout << "ALTA DE ALUMNOS" << endl << endl;
 
-				cout << "La matrícula ingresada debe contener 7 elementos." << endl << endl;
-				cout << "Presione Enter y vuelva a registrar la matrícula correctamente." << endl << endl;
+				cout << "El teléfono ingresado contiene una cantidad de elementos fuera del rango permitido ";
+				cout << "o uno o varios de estos elementos no son números." << endl << endl;
+				cout << "Presione Enter y vuelva a registrar el teléfono correctamente." << endl << endl;
 
 				system("pause > nul");
 
-				cout << "Matrícula: ";
-				getline(cin, datos[c].matricula);
+				cout << "Teléfono de contacto: ";
+				getline(cin, datos[c].telefono);
 			}
 		}
 
-		if (validar1 == true && validar2 == true && validar3 == true && validar4 == true && validar5 == true) {
-			c++;
+		cout << "\n¿Quiere permitir que el programa autogenere una matrícula?" << endl;
+		cout << "1.Autogenerar \n2.Denegar" << endl << endl;
+		cin >> opcion;
 
+		if (opcion == 1) {
+			datos[c].matricula = 0000001;
+			for (int i = 0; i < c; i++) {
+				if (strcmp(datos[c].matricula.c_str(), datos[i].matricula.c_str()) == 0) {
+					datos[c].matricula = stoi(datos[c].matricula) + 1;
+				}
+				else {
+					break;
+				}
+			}
+			cin.ignore();
+		}
+		else if (opcion == 2) {
+
+			cin.ignore();
+
+			bool validar3 = false;
+			while (validar3 == false) {
+				cout << "\nMatrícula: ";
+				getline(cin, datos[c].matricula);
+
+				int tamano3 = datos[c].matricula.size();
+
+				int cont = 0;
+				for (int i = 0; i < tamano3; i++) {
+					cont = cont + 1;
+				}
+				if (cont == 7) {
+					validar3 = true;
+				}
+				else {
+					validar3 = false;
+				}
+				if (validar3 == true) {
+					break;
+				}
+				else {
+					system("cls");
+
+					cout << "ALTA DE ALUMNOS" << endl << endl;
+
+					cout << "La matrícula ingresada debe contener 7 elementos." << endl << endl;
+					cout << "Presione Enter y vuelva a registrar la matrícula correctamente." << endl << endl;
+
+					system("pause > nul");
+
+					cout << "Matrícula: ";
+					getline(cin, datos[c].matricula);
+				}
+			}
+		}
+		else {
 			system("cls");
 
 			cout << "ALTA DE ALUMNOS" << endl << endl;
 
-			cout << "Los datos han sido registrados exitosamente." << endl << endl;
+			cout << "Error. Presione Enter e ingrese una opcion válida." << endl << endl;
 
-			cout << "¿Quiere registrar otro alumno?" << endl << endl;
-			cout << "1. Registrar \n2. Salir" << endl;
-			cin >> opcion;
+			system("pause > nul");
 
-			if (opcion == 1) {
-				AltaDeAlumnos();
-			}
-			else if (opcion == 2) {
-				menu();
-			}
-			else {
-				cout << "Error. Elija una opción válida." << endl;
+			AltaDeAlumnos();
+		}
 
-				system("pause > nul");
-			}
+		cout << "\nDirección: \nCalle y número: ";
+		getline(cin, datos[c].callenum);
+
+		cout << "\nColonia: ";
+		getline(cin, datos[c].colonia);
+
+		datos[c].calif1 = -1;
+
+		datos[c].calif2 = -1;
+
+		datos[c].calif3 = -1;
+
+		c++;
+
+		system("cls");
+
+		cout << "ALTA DE ALUMNOS" << endl << endl;
+
+		cout << "Los datos han sido registrados exitosamente." << endl << endl;
+
+		cout << "¿Quiere registrar otro alumno?" << endl << endl;
+		cout << "1. Registrar \n2. Salir" << endl;
+		cin >> opcion;
+
+		if (opcion == 1) {
+			AltaDeAlumnos();
+		}
+		else if (opcion == 2) {
+			menu();
+		}
+		else {
+			cout << "Error. Elija una opción válida." << endl;
+
+		system("pause > nul");
 		}
 	}
 	else if (opcion == 2) {
