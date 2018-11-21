@@ -9,6 +9,7 @@ using namespace std;
 
 int opcion;
 int c = 0;
+int matemp = 1;
 
 float califaux1;
 float califaux2;
@@ -46,7 +47,7 @@ void main() {
 
 	ifstream archivodatos;
 
-	archivodatos.open("Base de Datos.txt", ios::binary);
+	archivodatos.open("BasedeDatos.txt", ios::binary);
 
 	if (archivodatos.fail()) {
 		cout << "Error al abrir el archivo. \nPuede que el archivo no exista o se produjo un problema al intentar abrirlo" << endl << endl;
@@ -60,7 +61,11 @@ void main() {
 
 	archivodatos.close();
 
-	
+	for (int i = 0; i < 100; i++){
+		if (datos[i].matricula.size() != 0) {
+			c++;
+		}
+	}
 
 	menu();
 }
@@ -288,7 +293,6 @@ void AltaDeAlumnos() {
 					}
 					else {
 						validar1 = false;
-						break;
 					}
 				}
 			}
@@ -318,33 +322,15 @@ void AltaDeAlumnos() {
 
 		if (opcion == 1) {
 
-			for (int i = 0; i < 7; i++) {
-				if (i == 0 || i == 6) {
-					datos[c].matricula[i] = 49;
-				}
-				else if (i == 1) {
-					datos[c].matricula[i] = 54;
-				}
-				else {
-					datos[c].matricula[i] = 48;
-				}
-			}
+			datos[c].matricula = to_string(matemp);
 
 			for (int i = 0; i < c; i++) {
 				while (strcmp(datos[c].matricula.c_str(), datos[i].matricula.c_str()) == 0) {
 
-					if (datos[c].matricula[6] < 57) {
-						datos[c].matricula[6] = datos[c].matricula[6] + 1;
-					}
-					else if (datos[c].matricula[5] < 57) {
-						datos[c].matricula[6] = 48;
-						datos[c].matricula[5] = datos[c].matricula[5] + 1;
-					}
-					else {
-						datos[c].matricula[6] = 48;
-						datos[c].matricula[5] = 48;
-						datos[c].matricula[4] = 49;
-					}
+					matemp = matemp + 1;
+
+					datos[c].matricula = to_string(matemp);
+
 				}
 			}
 			cin.ignore();
@@ -366,7 +352,7 @@ void AltaDeAlumnos() {
 				for (int i = 0; i < tamano3; i++) {
 					cont = cont + 1;
 				}
-				if (cont == 7) {
+				if (cont >= 1 && cont <= 7) {
 					validar3 = true;
 				}
 				else {
@@ -381,7 +367,7 @@ void AltaDeAlumnos() {
 
 					cout << "ALTA DE ALUMNOS" << endl << endl;
 
-					cout << "La matrícula ingresada debe contener 7 elementos." << endl << endl;
+					cout << "La matrícula ingresada debe contener máximo 7 elementos." << endl << endl;
 					cout << "Presione Enter y vuelva a registrar la matrícula correctamente." << endl << endl;
 
 					system("pause > nul");
@@ -664,6 +650,7 @@ void AltaDeCalificaciones() {
 
 				menu();
 			}
+			i++;
 		}
 
 		if (encontrado == false) {
@@ -732,7 +719,7 @@ void BuscarAlumno() {
 			cout << "Alumno: " << datos[i].nombre << " " << datos[i].apellidos << endl;
 			cout << "Correo electrónico: " << datos[c].correoelec << endl;
 			cout << "Teléfono: " << datos[i].telefono << endl;
-			cout << "Matrícula" << datos[i].matricula << endl;
+			cout << "Matrícula: " << datos[i].matricula << endl;
 			cout << "Dirección: " << datos[i].callenum << " " << datos[i].colonia << endl;
 			cout << "Calificaciones" << endl << "Calificación 1: " << datos[i].calif1 << endl;
 			cout << "Calificación 2: " << datos[i].calif2 << endl << "Calificación 3: " << datos[i].calif3 << endl;
@@ -788,7 +775,7 @@ void EdicionDeAlumnos() {
 			cout << "Alumno: " << datos[i].nombre << " " << datos[i].apellidos << endl;
 			cout << "Correo electrónico: " << datos[i].correoelec << endl;
 			cout << "Teléfono: " << datos[i].telefono << endl;
-			cout << "Matrícula" << datos[i].matricula << endl;
+			cout << "Matrícula: " << datos[i].matricula << endl;
 			cout << "Dirección: " << datos[i].callenum << " " << datos[i].colonia << endl;
 			cout << "Calificaciones" << endl << "Calificación 1: " << datos[i].calif1 << endl;
 			cout << "Calificación 2: " << datos[i].calif2 << endl << "Calificación 3: " << datos[i].calif3 << endl;
@@ -801,11 +788,7 @@ void EdicionDeAlumnos() {
 
 			if (opcion == 1) {
 
-				system("cls");
-
-				cout << "EDICIÓN DE ALUMNOS" << endl << endl;
-
-				cout << "¿Qué dato quiere modificar?" << endl << endl;
+				cout << "\n¿Qué dato quiere modificar?" << endl << endl;
 				cout << "1. Nombre \n2. Apellidos \n3. Correo electrónico \n4. Teléfono \n5. Matrícula";
 				cout << "\n6. Calle y número \n7. Colonia \n8. Calificación 1 \n9. Calificación 2 \n10. Calificación 3 " << endl << endl;
 				cin >> opcion;
@@ -818,10 +801,12 @@ void EdicionDeAlumnos() {
 
 					bool validar4 = false;
 					while (validar4 == false) {
-						cout << "Nombre(s): ";
-						getline(cin, datos[c].nombre);
 
-						string temp = datos[c].nombre;
+						cin.ignore();
+						cout << "Nombre(s): ";
+						getline(cin, datos[i].nombre);
+
+						string temp = datos[i].nombre;
 
 						int tamano4 = temp.size();
 
@@ -862,10 +847,12 @@ void EdicionDeAlumnos() {
 
 					bool validar5 = false;
 					while (validar5 == false) {
-						cout << "\nApellidos: ";
-						getline(cin, datos[c].apellidos);
 
-						string temp = datos[c].apellidos;
+						cin.ignore();
+						cout << "\nApellidos: ";
+						getline(cin, datos[i].apellidos);
+
+						string temp = datos[i].apellidos;
 
 						int tamano5 = temp.size();
 
@@ -906,10 +893,12 @@ void EdicionDeAlumnos() {
 
 					bool validar2 = false;
 					while (validar2 == false) {
-						cout << "\nCorreo electronico: ";
-						getline(cin, datos[c].correoelec);
 
-						string temp = datos[c].correoelec;
+						cin.ignore();
+						cout << "\nCorreo electronico: ";
+						getline(cin, datos[i].correoelec);
+
+						string temp = datos[i].correoelec;
 
 						int tamano2 = temp.size();
 
@@ -977,10 +966,12 @@ void EdicionDeAlumnos() {
 
 					bool validar1 = false;
 					while (validar1 == false) {
-						cout << "\nTeléfono de contacto: ";
-						getline(cin, datos[c].telefono);
 
-						string temp = datos[c].telefono;
+						cin.ignore();
+						cout << "\nTeléfono de contacto: ";
+						getline(cin, datos[i].telefono);
+
+						string temp = datos[i].telefono;
 
 						int tamano1 = temp.size();
 
@@ -1034,13 +1025,16 @@ void EdicionDeAlumnos() {
 					cin >> opcion;
 
 					if (opcion == 1) {
-						datos[c].matricula = 0000001;
+
+						datos[i].matricula = to_string(matemp);
+
 						for (int i = 0; i < c; i++) {
-							if (strcmp(datos[c].matricula.c_str(), datos[i].matricula.c_str()) == 0) {
-								datos[c].matricula = stoi(datos[c].matricula) + 1;
-							}
-							else {
-								break;
+							while (strcmp(datos[c].matricula.c_str(), datos[i].matricula.c_str()) == 0) {
+
+								matemp = matemp + 1;
+
+								datos[i].matricula = to_string(matemp);
+
 							}
 						}
 						cin.ignore();
@@ -1052,9 +1046,9 @@ void EdicionDeAlumnos() {
 						bool validar3 = false;
 						while (validar3 == false) {
 							cout << "\nMatrícula: ";
-							getline(cin, datos[c].matricula);
+							getline(cin, datos[i].matricula);
 
-							string temp = datos[c].matricula;
+							string temp = datos[i].matricula;
 
 							int tamano3 = temp.size();
 
@@ -1104,8 +1098,9 @@ void EdicionDeAlumnos() {
 
 					cout << "EDICIÓN DE ALUMNOS" << endl << endl;
 
+					cin.ignore();
 					cout << "\nDirección: \nCalle y número: ";
-					getline(cin, datos[c].callenum);
+					getline(cin, datos[i].callenum);
 
 				}
 
@@ -1115,8 +1110,9 @@ void EdicionDeAlumnos() {
 
 					cout << "EDICIÓN DE ALUMNOS" << endl << endl;
 
+					cin.ignore();
 					cout << "\nColonia: ";
-					getline(cin, datos[c].colonia);
+					getline(cin, datos[i].colonia);
 
 				}
 
@@ -1128,6 +1124,8 @@ void EdicionDeAlumnos() {
 
 					bool validar = false;
 					while (validar == false) {
+
+						cin.ignore();
 						cout << "Calificación 1: " << endl;
 						cin >> datos[i].calif1;
 
@@ -1179,6 +1177,8 @@ void EdicionDeAlumnos() {
 
 					bool validar = false;
 					while (validar == false) {
+
+						cin.ignore();
 						cout << "Calificación 2: " << endl;
 						cin >> datos[i].calif2;
 
@@ -1230,6 +1230,8 @@ void EdicionDeAlumnos() {
 
 					bool validar = false;
 					while (validar == false) {
+
+						cin.ignore();
 						cout << "Calificación 3: " << endl;
 						cin >> datos[i].calif3;
 
@@ -1315,7 +1317,7 @@ void BorrarAlumnos() {
 			cout << "Alumno: " << datos[i].nombre << " " << datos[i].apellidos << endl;
 			cout << "Correo electrónico: " << datos[c].correoelec << endl;
 			cout << "Teléfono: " << datos[i].telefono << endl;
-			cout << "Matrícula" << datos[i].matricula << endl;
+			cout << "Matrícula: " << datos[i].matricula << endl;
 			cout << "Dirección: " << datos[i].callenum << " " << datos[i].colonia << endl;
 			cout << "Calificaciones" << endl << "Calificación 1: " << datos[i].calif1 << endl;
 			cout << "Calificación 2: " << datos[i].calif2 << endl << "Calificación 3: " << datos[i].calif3 << endl;
@@ -1378,13 +1380,13 @@ void Salir() {
 	}
 	else {
 
-		ofstream archivodatosF;
+		ofstream archivodatos;
 
-		archivodatosF.open("Base de Datos.txt", ios::binary);
+		archivodatos.open("BasedeDatos.txt", ios::binary);
 
-		archivodatosF.write((char*)&datos, sizeof(datos));
+		archivodatos.write((char*)&datos, sizeof(datos));
 
-		archivodatosF.close();
+		archivodatos.close();
 
 		system("cls");
 	}
