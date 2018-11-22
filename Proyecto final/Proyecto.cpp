@@ -67,6 +67,8 @@ void main() {
 		}
 	}
 
+	ManualDeUsuario();
+
 	menu();
 }
 
@@ -612,7 +614,7 @@ void AltaDeCalificaciones() {
 					}
 					else {
 						cout << "Esta calificación ya fue registrada. Si desea modificarla acceda a la sección de Edicion de Alumnos." << endl;
-						
+
 						system("pause > nul");
 					}
 				}
@@ -643,14 +645,8 @@ void AltaDeCalificaciones() {
 				}
 			}
 			else {
-				cout << "No hay alumnos registrados con esta matrícula" << endl << endl;
-				cout << "Presione Enter y vuelva a ingresar desde el menú." << endl << endl;
 				i++;
-				system("pause > nul");
-
-				menu();
 			}
-			i++;
 		}
 
 		if (encontrado == false) {
@@ -707,7 +703,6 @@ void BuscarAlumno() {
 	cout << "¿Qué matrícula buscas? " << endl;
 	string mat;
 	getline(cin, mat);
-
 	
 	bool encontrado = false;
 
@@ -1359,9 +1354,96 @@ void ManualDeUsuario() {
 
 	cout << "MANUAL DE USUARIO" << endl << endl;
 
-	system("pause > nul");
+	cout << "Requisitos: \nCualquier computadora con la capacidad de ejecutar Microsoft Visual Studio ";
+	cout << "(se recomienda que ejecute Microsoft Visual Studio 2017)." << endl << endl;
 
-	menu();
+	cout << "Introducción: " << endl << endl;
+	cout << "Este programa fue creado con el propósito de brindar una herramienta a cualquier  ";
+	cout << "profesor que requiera agendar los datos de sus alumnos asi como sus calificaciones obtenidas en ciertas ";
+	cout << "actividades de forma práctica y sencilla, para realizar el cálculo de promedios, buscar contactar a un ";
+	cout << "alumno, entre muchas otras cosas." << endl << endl;
+
+	cout << "Instrucciones generales: " << endl << endl;
+
+	cout << "Al iniciar el programa por primera vez aparecerá un mensaje que dice Error al abrir el archivo. ";
+	cout << "Puede que el archivo no exista o se produjo un problema al intentar abrirlo, esto es normal, solo se ";
+	cout << "debe presionar Enter para continuar." << endl << endl;
+	cout << "Si dicho mensaje sigue apareciendo después de la primera vez, debió haber ocurrido algún error." << endl << endl;
+	
+	cout << "Cada vez que aparezca una lista de opciones enumeradas, se debe elegir ingresando el número desde teclado ";
+	cout << "y enseguida presionar Enter." << endl << endl;
+	cout << "Si se ingresa un número diferente de los disponibles en la lista, el programa lo marcará como Error ";
+	cout << "y se tendrá que ingresar de nuevo la opción, o, en el peor de los casos, se tendrá que ingresar desde el menú." << endl << endl;
+
+	cout << "Cada vez que se deba ingresar un dato mediante el teclado, se debe presionar Enter una vez que se escriba ";
+	cout << "el dato completo." << endl << endl;
+
+	cout << "Instrucciones: " << endl << endl;
+	
+	cout << "Menú: " << endl << endl;
+	cout << "En esta sección se puede elegir cualquiera de las opciones que se muestran en pantalla para proceder a ";
+	cout << "realizar sus respectivas funciones." << endl << endl;
+	
+	cout << "Alta de alumnos: " << endl << endl;
+	cout << "En esta sección se solicitará confirmación de registro." << endl;
+	cout << "Si se ingresa la opción 1, se procederá al llenado de los datos de alumno, para los cuales se debe ";
+	cout << "tener en cuenta las siguientes indicaciones: " << endl << endl;
+	cout << "- Todos los datos a ingresar pueden tener la cantidad de espacios que el usuario desee utilizar, ";
+	cout << "queda a criterio de éste el manejo de los espacios en cada dato." << endl;
+	cout << "- Ningún dato cambiará letras minúsculas a mayúsculas ni viceversa, queda a criterio ";
+	cout << "del usuario el manejo del tipo de letras." << endl;
+	cout << "- Los datos Nombre(s) y Apellidos solo aceptan letras al momento de ingresarlos." << endl;
+	cout << "- El correo electrónico debe tener un solo @ y debe terminar con .com ." << endl;
+	cout << "- El teléfono de contacto solo acepta números al momento de ingresarlo, y debe ser de al menos 8 ";
+	cout << "dígitos y menor que 12 dígitos." << endl;
+	cout << "- Para la matrícula tendrá 2 opciones: autogenerarla o ingresarla. Si se desea ingresarla, la matrícula ";
+	cout << "debe ser de al menos 1 elemento y acepta un máximo de 7 elementos." << endl << endl;
+	cout << "Al finalizar el registro, se tiene la opción de registrar a otro alumno. Si elige Salir regresará a Menú." << endl << endl;
+	
+	cout << "Alta de calificaciones: " << endl << endl;
+	cout << "En esta sección se solicitará confirmación de registro." << endl;
+	cout << "Si se ingresa la opción 1, se procederá a la búsqueda de un alumno, para lo cual el usuario debe ";
+	cout << "ingresar la matrícula del alumno a quien se le dará de alta una o varias calificaciones." << endl;
+	cout << "Una vez encontrado el alumno, el usuario puede elegir la calificación que quiera registrar, asi como ";
+	cout << "obtener el promedio de dicho alumno. Aqui algunas indicaciones respecto al registro de calificaciones: " << endl << endl;
+	cout << "- Cualquier calificación solo acepta números al momento de ingresarlas." << endl;
+	cout << "- Dichos números tienen que estar dentro del rango de 0 a 100, y pueden tener un máximo de 2 decimales." << endl << endl;
+	cout << "- Evite ingresar una gran cantidad de ceros como decimales, pues podría traer problemas al programa." << endl << endl;
+	cout << "- Si no registra una calificación, el promedio será de cero. Este programa fue creado para que ";
+	cout << "calcule un promedio basado en tres calificaciones. El usuario no puede hacer nada para modificarlo." << endl << endl;
+	cout << "Para salir de esta sección se debe ingresar la opción Cancelar." << endl << endl;
+
+	cout << "Lista completa: " << endl << endl;
+	cout << "Al seleccionar esta opción se muestra una lista de todos los alumnos que están registrados en el programa." << endl << endl;
+	cout << "Para salir de esta sección se debe presionar Enter." << endl << endl;
+
+	cout << "Buscar alumno: " << endl << endl;
+	cout << "En esta sección el usuario puede buscar los datos de un solo alumno ingresando su matrícula correspondiente." << endl << endl;
+	cout << "Para salir de esta sección se debe presionar Enter." << endl << endl;
+
+	cout << "Edición de alumnos" << endl << endl;
+	cout << "En esta sección el usuario puede modificar los datos de los alumnos que fueron ingresados durante el ";
+	cout << "registro. Para ello deberá ingresar la matrícula del alumno que desea modificar y enseguida visualizará ";
+	cout << "los datos de dicho alumno, así como dos opciones: Modificar y Cancelar." << endl;
+	cout << "Si se ingresa la opción 1, se abrirá una lista de opciones con los datos que se pueden modificar. ";
+	cout << "Dependiendo de la opción que se elija, se procederá a ingresar el nuevo dato correspondiente.";
+	cout << "Se deben tomar en cuenta las indicaciones ya mencionadas en las secciones anteriores." << endl << endl;
+
+	cout << "Borrar alumnos: " << endl << endl;
+	cout << "En esta sección el usuario puede borrar alumnos del programa para un fin determinado. Deberá ingresar la ";
+	cout << "matrícula del alumno que desea eliminar y después se solicitará confirmación de eliminación." << endl;
+	cout << "Si se elije la opción de Eliminar, el programa borrará todos los datos del alumno eliminado del programa." << endl << endl;
+
+	cout << "La sección Manual de Usuario muestra las indicaciones que debe conocer el usuario antes de ejecutar el ";
+	cout << "programa. Así no tendrá dificultad para manejarlo." << endl << endl;
+
+	cout << "Salir: " << endl << endl;
+	cout << "Con esta opción se guardan todos los cambios que se hayan realizado en el programa durante su ejecución." << endl;
+	cout << "Primero se solicitará confirmación de salida del programa y después se cerrará." << endl << endl;
+
+	cout << "Para salir de esta sección presione Enter.";
+
+	system("pause > nul");
 }
 
 void Salir() {
