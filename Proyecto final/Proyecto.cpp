@@ -4,7 +4,6 @@
 #include <cstdlib>
 #include <fstream>
 #include <math.h>
-#include <sstream>
 using namespace std;
 
 int opcion;
@@ -66,8 +65,6 @@ void main() {
 			c++;
 		}
 	}
-
-	ManualDeUsuario();
 
 	menu();
 }
@@ -161,6 +158,7 @@ void AltaDeAlumnos() {
 				}
 				else {
 					validar4 = false;
+					break;
 				}
 			}
 
@@ -197,6 +195,7 @@ void AltaDeAlumnos() {
 				}
 				else {
 					validar5 = false;
+					break;
 				}
 			}
 
@@ -216,6 +215,7 @@ void AltaDeAlumnos() {
 		}
 
 		bool validar2 = false;
+		bool validar22 = false;
 		while (validar2 == false) {
 			cout << "\nCorreo electronico: ";
 			getline(cin, datos[c].correoelec);
@@ -241,29 +241,14 @@ void AltaDeAlumnos() {
 				}
 			}
 
-			if (temp[tamano2 - 4] == 46) {
-				if (temp[tamano2 - 3] == 99) {
-					if (temp[tamano2 - 2] == 111) {
-						if (temp[tamano2 - 1] == 109) {
-							validar2 = true;
-						}
-						else {
-							validar2 = false;
-						}
-					}
-					else {
-						validar2 = false;
-					}
-				}
-				else {
-					validar2 = false;
-				}
+			if (temp[tamano2 - 4] == 46 && temp[tamano2 - 3] == 99 && temp[tamano2 - 2] == 111 && temp[tamano2 - 1] == 109) {
+				validar22 = true;
 			}
 			else {
-				validar2 = false;
+				validar22 = false;
 			}
 
-			if (validar2 == true) {
+			if (validar2 == true && validar22 == true) {
 				break;
 			}
 			else {
@@ -814,6 +799,7 @@ void EdicionDeAlumnos() {
 							}
 							else {
 								validar4 = false;
+								break;
 							}
 						}
 
@@ -860,6 +846,7 @@ void EdicionDeAlumnos() {
 							}
 							else {
 								validar5 = false;
+								break;
 							}
 						}
 
@@ -887,6 +874,7 @@ void EdicionDeAlumnos() {
 					cout << "EDICIÓN DE ALUMNOS" << endl << endl;
 
 					bool validar2 = false;
+					bool validar22 = false;
 					while (validar2 == false) {
 
 						cin.ignore();
@@ -914,29 +902,14 @@ void EdicionDeAlumnos() {
 							}
 						}
 
-						if (temp[tamano2 - 4] == 46) {
-							if (temp[tamano2 - 3] == 99) {
-								if (temp[tamano2 - 2] == 111) {
-									if (temp[tamano2 - 1] == 109) {
-										validar2 = true;
-									}
-									else {
-										validar2 = false;
-									}
-								}
-								else {
-									validar2 = false;
-								}
-							}
-							else {
-								validar2 = false;
-							}
+						if (temp[tamano2 - 4] == 46 && temp[tamano2 - 3] == 99 && temp[tamano2 - 2] == 111 && temp[tamano2 - 1] == 109) {
+							validar22 = true;
 						}
 						else {
-							validar2 = false;
+							validar22 = false;
 						}
 
-						if (validar2 == true) {
+						if (validar2 == true && validar22 == true) {
 							break;
 						}
 						else {
